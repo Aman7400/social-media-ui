@@ -8,7 +8,7 @@ import NewsFeeds from '../../components/home/NewsFeeds'
 
 const Home = () => {
   return (
-    <SafeAreaView style={{flex:1}}>
+    <SafeAreaView style={{flex:1,padding:16}}>
       {/* Header */}
       <Header/>
       {/* Stories */}
