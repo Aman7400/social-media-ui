@@ -9,12 +9,17 @@ export default ({focused,color,size},route) => {
 
           iconName = focused ? 'home' : 'home-outline'
                         
+        }
+        else if (route.name === 'Explore') {
+
+          iconName = focused ? 'compass' : 'compass-outline'
+                        
         }  else if (route.name === 'Profile') {
 
           iconName = focused ? 'person' : 'person-outline'
                         
         }
 
-        return <Icon name={iconName} color={focused ? colors.onPrimaryContainer : color} size={focused ? 30 : size} />
+        return <Icon name={iconName} color={focused ? colors.primary : color} size={focused ? 30 : size} />
 
     }
