@@ -5,24 +5,22 @@ import { FAB } from 'react-native-paper'
 
 const CreatePosts = () => {
     return (
-        <View  style={styles.fab} >
             <FAB
+                style={styles.fab}
                 icon="pencil-outline"
-                style={{
-                    backgroundColor:colors.onPrimaryContainer
-                }}
                 onPress={() => console.log('Pressed')}
             />
-        </View>
     )
 }
 
 const styles = StyleSheet.create({
     fab: {
-      position: 'absolute',
-      margin: 16,
-      right: 0,
-      bottom: 0,
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+        zIndex: 10000,
+        backgroundColor: colors.onPrimaryContainer
     },
-  })
+})
 export default CreatePosts
