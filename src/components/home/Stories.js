@@ -20,7 +20,7 @@ const Stories = () => {
         {/* Other Stories  */}
 
         {
-          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, i) => <OthersStoryItem key={i} />)
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_, i) => <OthersStoryItem key={i} i={i} />)
         }
 
 
@@ -33,10 +33,12 @@ const Stories = () => {
 }
 
 
-const OthersStoryItem = () => (
-  <Avatar.Image size={48} style={{
-    marginHorizontal: 4
-  }} source={{ uri: 'https://picsum.photos/24' }} />
+const OthersStoryItem = ({i}) => (
+  <TouchableOpacity onPress={() => alert(`Story ${i}`)}>
+    <Avatar.Image size={48} style={{
+      marginHorizontal: 4
+    }} source={{ uri: 'https://picsum.photos/24' }} />
+  </TouchableOpacity>
 );
 
 
