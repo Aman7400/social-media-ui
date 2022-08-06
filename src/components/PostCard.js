@@ -29,7 +29,8 @@ const PostCard = ({post}) => {
     const [isLiked,setIsLiked] = React.useState(false)
 
 
-    console.log(post);
+    // console.log(post);
+    console.log(post.uploadedBy?.userName);
 
 
     return (
@@ -39,7 +40,7 @@ const PostCard = ({post}) => {
                     <LeftContent/>
                     <View style={{marginLeft:8}}>
                         <Text style={{ fontSize:16,fontFamily:fonts.bold}}>
-                            {userProfile.userName}
+                            {post?.uploadedBy?.userName}
                         </Text>
                         <Text style={{ fontSize:12,fontFamily:fonts.regular}}>
                             {post?.location}
@@ -57,7 +58,7 @@ const PostCard = ({post}) => {
                     <Icon style={{marginLeft:"auto"}} name="bookmark-outline" suppressHighlighting={true} onPress={() => alert("Share")} size={24} />
                 </Card.Actions>
                 <View style={{flexDirection:"row"}}>
-                    <Text style={{fontFamily:fonts.medium}}>{userProfile.userName}</Text>
+                    <Text style={{fontFamily:fonts.medium}}>{post?.uploadedBy?.userName}</Text>
                     <Text style={{fontFamily:fonts.light,marginLeft:8}}>{post?.caption}</Text>
                 </View>
             </Card>

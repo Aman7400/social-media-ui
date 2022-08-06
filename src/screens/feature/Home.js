@@ -13,12 +13,12 @@ const Home = () => {
       <Header />
       {/* Create Post */}
       <CreatePostsButton />
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} bounces={false}>
+      {/* <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} bounces={false}> */}
         {/* Stories */}
         <Stories />
         {/* News Feed */}
         <NewsFeeds />
-      </ScrollView>
+      {/* </ScrollView> */}
     </SafeAreaView>
   )
 }
