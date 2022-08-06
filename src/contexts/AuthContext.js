@@ -10,6 +10,7 @@ const AuthContext = React.createContext();
 
 const AuthContextProvider = ({ children }) => {
 
+
     const [isLoading, setIsLoading] = React.useState(false);
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [userProfile, setUserProfile] = React.useState();
@@ -55,6 +56,7 @@ const AuthContextProvider = ({ children }) => {
 
 
     const bootStrapAsync = async () => {
+        console.log("getting bootstrap");
         try {
             setIsLoading(true);
 

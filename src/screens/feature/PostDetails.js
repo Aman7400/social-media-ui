@@ -7,7 +7,7 @@ import PostCard from '../../components/PostCard'
 
 const PostDetails = ({ route, navigation }) => {
 
-  const {title} = route.params 
+  const {title,post} = route.params 
 
   return (
     <SafeAreaView style={{ flex: 1,paddingHorizontal:16,}}>
@@ -17,7 +17,7 @@ const PostDetails = ({ route, navigation }) => {
         <Text style={{ marginLeft: 16, fontSize: 18, fontFamily: fonts.bold }}>{title}</Text>
       </View>
       {/* Posts */}
-      <PostCard />
+      <PostCard post={post} />
     </SafeAreaView>
   )
 }

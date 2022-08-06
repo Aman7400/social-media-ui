@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, ScrollView } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from "react-native-vector-icons/Ionicons"
@@ -7,17 +7,60 @@ import { BottomSheet } from 'react-native-btr'
 import { Avatar, Button } from 'react-native-paper'
 import ExploreCard from "../../components/ExploreCard"
 import { AuthContext } from '../../contexts/AuthContext'
+import axios from 'axios'
+import * as SecureStore from "expo-secure-store"
+import { useIsFocused } from '@react-navigation/native'
 
 const BACKEND_URL = "http://localhost:8000/api"
 
 const Profile = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
-  const {userProfile} = React.useContext(AuthContext)
+  const {userProfile,logout,isLoading,setIsLoading} = React.useContext(AuthContext)
+  const isFocused = useIsFocused();
+  const [posts,setPosts] = React.useState([]);
+
+  const getAllPosts = async () => {
+      try {
+       setIsLoading(true);
+         let token = await SecureStore.getItemAsync("token")
+         const res = await axios.get(`${BACKEND_URL}/posts/all`, {
+          headers: {
+              Authorization: "Bearer " + token
+          }
+      })
+
+      if (res.data.message === 'Posts') {
+        setPosts(res.data.posts)
+      }
+        
+      } catch (error) {
+
+        alert("Posts Error : ", error)
+        
+      } finally{
+        setIsLoading(false)
+      }
+  }
+
+  React.useEffect(() => {
+
+    if(isFocused) {
+    console.log("Getting posts...");
+    getAllPosts();
+    }
+    
+  },[isFocused])
 
   function toggle() {
-      setVisible((visible) => !visible);
-
+      setVisible((visible) => !visible)
   }
+
+  if (isLoading) {
+    return (<View style={{flex: 1 }}>
+      <ActivityIndicator style={{flex: 1}}/>
+    </View>)
+  }
+
   return (
     <>
       <SafeAreaView style={{ flex: 1, paddingVertical: 8, paddingHorizontal: 16 }} >
@@ -90,30 +133,13 @@ const Profile = ({navigation}) => {
         </View>
         {/* Post Grid */}
          {/* Explore Items */}
-         <FlatList showsVerticalScrollIndicator={false} scrollsToTop={true} numColumns={2} data={[{
-                id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-                title: "First Item",
-            },
-            {
-                id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-                title: "Second Item",
-            },
-            {
-                id: "58694a0f-3da1-471f-bd96-145571e29d72",
-                title: "Third Item",
-            }, {
-                id: "58694a0f-3da1-471f-bd96-145571e29d7",
-                title: "Third Item",
-            }, {
-                id: "58694a0f-3da1-471f-bd96-145571e292",
-                title: "Third Item",
-            }, {
-                id: "58694a0f-3da1-471f-bd96-1455729d72",
-                title: "Third Item",
-            }, {
-                id: "58694a0f-3da1-471f-bd96-145529d72",
-                title: "Third Item",
-            },]} keyExtractor={(item) => item.id} renderItem={({ item }) => <ExploreCard title={"Posts"} />} />
+         {/* <ScrollView>
+          {
+            // userProfile.posts.map((item,i) => <ExploreCard title={"Posts"} key={i} post={item} /> )
+          }
+         </ScrollView> */}
+         <FlatList showsVerticalScrollIndicator={false} scrollsToTop={true} numColumns={2} 
+         data={posts} keyExtractor={(item) => item._id} renderItem={ ({item}) => <ExploreCard title={"Posts"} item={item} />} />
       </SafeAreaView>
 
       <BottomSheet
@@ -123,6 +149,9 @@ const Profile = ({navigation}) => {
       >
         <View style={styles.card}>
           <Text>Place your custom view inside BottomSheet</Text>
+          <Text onPress={() => logout()}>
+            Logout
+          </Text>
         </View>
       </BottomSheet>
     </>
