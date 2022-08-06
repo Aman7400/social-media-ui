@@ -3,10 +3,10 @@ import { Dimensions, TouchableOpacity } from "react-native"
 import { Card } from "react-native-paper"
 import React from 'react'
 
-const ExploreCard = () => {
+const ExploreCard = ({title}) => {
     const navigation = useNavigation()
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("PostDetails") }>
+        <TouchableOpacity onPress={() => navigation.navigate("PostDetails",{title}) }>
             <Card style={{
                 width: (Dimensions.get("screen").width - 32 - 16) / 2,
                 margin: 4,

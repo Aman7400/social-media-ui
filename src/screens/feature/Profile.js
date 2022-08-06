@@ -109,7 +109,7 @@ const Profile = ({navigation}) => {
             }, {
                 id: "58694a0f-3da1-471f-bd96-145529d72",
                 title: "Third Item",
-            },]} keyExtractor={(item) => item.id} renderItem={({ item }) => <ExploreCard />} />
+            },]} keyExtractor={(item) => item.id} renderItem={({ item }) => <ExploreCard title={"Posts"} />} />
       </SafeAreaView>
 
       <BottomSheet
