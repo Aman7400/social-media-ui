@@ -9,16 +9,10 @@ const Header = () => {
   return (
     <View style={{flexDirection:"row", position:"relative", justifyContent:"space-between",alignItems:"center",marginBottom: 8}}>
         {/* Greetig */}
-      <View  >
       <Text style={{
-        fontFamily:fonts.regular,
-        fontSize:20
-      }} >Hey,{userProfile?.fullName}</Text>
-      <Text style={{
-        fontFamily:fonts.medium,
-        fontSize:24
-      }}>Good Morning</Text>
-      </View>
+        fontFamily:fonts.bold,
+        fontSize:18
+      }}>Socially</Text>
       {/* Tools */}
       <TouchableOpacity>
         <Icon name="notifications" color={colors.onPrimaryContainer} size={24} />

@@ -8,9 +8,6 @@ import { Avatar } from 'react-native-paper'
 const Stories = () => {
   return (
     <View style={{ marginBottom: 16 }}>
-      <Text style={{ fontSize: 20, fontFamily: fonts.medium, color: colors.primary, marginBottom: 8 }}>Stories</Text>
-
-
 
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {/* Add Story Button */}

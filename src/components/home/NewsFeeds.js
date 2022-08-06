@@ -12,9 +12,8 @@ const NewsFeeds = () => {
  
   return (
     <View style={{zIndex:-1,flex:1}} bounces={false}  >
-      {/* Heading */}
-      <Text style={{ marginBottom: 8, fontSize: 20, fontFamily: fonts.medium, color: colors.primary }}>Feeds</Text>
       {/* Posts */}
+      <PostCard />
       <PostCard />
       <PostCard />
     </View>
