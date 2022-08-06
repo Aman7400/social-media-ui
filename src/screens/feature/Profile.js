@@ -79,7 +79,7 @@ const Profile = ({navigation}) => {
             <Text style={{ fontSize:14,fontFamily: fonts.regular }}>
             Always the best 
             </Text>
-            <Button onPress={() => navigation.navigate("EditProfile")} style={{backgroundColor:"#C8C8C8",marginVertical:8}} mode="contained">
+            <Button onPress={() => navigation.navigate("EditProfile")} style={{marginVertical:8}} mode="contained">
               Edit Profile
             </Button>
           {/* Bio */}
