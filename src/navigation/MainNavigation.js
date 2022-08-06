@@ -9,7 +9,7 @@ const MainNavigation = () => {
     return (
         <NavigationContainer>
             {
-                !isLoggedIn ? <TabNavigation /> : <AuthStack/>
+                isLoggedIn ? <TabNavigation /> : <AuthStack/>
             }
         </NavigationContainer>
     )

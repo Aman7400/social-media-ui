@@ -3,7 +3,7 @@ import * as SecureStore from "expo-secure-store"
 import axios from "axios";
 // import { BACKEND_URL } from "@env"
 
-const BACKEND_URL = 'http://localhost:8000/api/'
+const BACKEND_URL = 'http://localhost:8000/api'
 
 const AuthContext = React.createContext();
 

@@ -6,9 +6,13 @@ import { fonts } from "../../theme/theme"
 import { BottomSheet } from 'react-native-btr'
 import { Avatar, Button } from 'react-native-paper'
 import ExploreCard from "../../components/ExploreCard"
+import { AuthContext } from '../../contexts/AuthContext'
+
+const BACKEND_URL = "http://localhost:8000/api"
 
 const Profile = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
+  const {userProfile} = React.useContext(AuthContext)
 
   function toggle() {
       setVisible((visible) => !visible);
@@ -21,7 +25,7 @@ const Profile = ({navigation}) => {
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between",marginBottom: 16 }}>
           {/* User Name */}
           <View>
-            <Text style={{ fontSize: 24, fontFamily: fonts.bold }}>strk1703</Text>
+            <Text style={{ fontSize: 24, fontFamily: fonts.bold }}>{userProfile.userName}</Text>
           </View>
           <View>
             <Icon onPress={toggle} suppressHighlighting name="menu-outline" size={36} />
@@ -31,7 +35,7 @@ const Profile = ({navigation}) => {
         <View style={{ flexDirection: "row",alignItems: "center",marginBottom: 16}}>
           {/* Avatar */}
           <View style={{ flex:1}}>
-            <Avatar.Image source={{ uri: 'https://picsum.photos/900'}}/>
+            <Avatar.Image source={{ uri: userProfile.profilePic ? `${BACKEND_URL}${userProfile.profilePic}` : null}}/>
           </View>
           {/* Stats */}
           <View style={{ flexDirection: "row",flex:3,justifyContent: "space-evenly"}}>
@@ -74,10 +78,10 @@ const Profile = ({navigation}) => {
         <View style={{marginBottom: 16 }}>
           {/* Full Name */}
           <Text style={{ fontSize:18,fontFamily: fonts.medium }}>
-            Aman Kumar Shukla
+            {userProfile.fullName}
             </Text>
             <Text style={{ fontSize:14,fontFamily: fonts.regular }}>
-            Always the best 
+            {userProfile.bio}
             </Text>
             <Button onPress={() => navigation.navigate("EditProfile")} style={{marginVertical:8}} mode="contained">
               Edit Profile

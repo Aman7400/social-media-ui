@@ -5,14 +5,21 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { fonts } from '../../theme/theme'
 import { TextInput } from 'react-native-paper'
 import * as ImagePicker from "expo-image-picker";
+import { AuthContext } from '../../contexts/AuthContext'
 
+import * as SecureStore from "expo-secure-store"
+import axios from 'axios'
+
+const BACKEND_URL = "http://localhost:8000/api"
 
 const EditProfile = ({ navigation }) => {
 
+  const {userProfile,setUserProfile} = React.useContext(AuthContext)
+
   const [profileData, setProfileData] = React.useState({
-    fullName: "",
-    userName: "",
-    bio: ""
+    fullName: userProfile.fullName,
+    userName: userProfile.userName,
+    bio: userProfile.bio
   })
 
   const handleProfileChange = (name, value) => {
@@ -25,7 +32,7 @@ const EditProfile = ({ navigation }) => {
   }
 
   const [isLoading, setIsLoading] = React.useState(false)
-  const [img, setImg] = React.useState(null)
+  const [img, setImg] = React.useState(userProfile.profilePic ? `${BACKEND_URL}${userProfile.profilePic}` : null)
 
   const [isReady, setIsReady] = React.useState(false)
 
@@ -46,36 +53,7 @@ const EditProfile = ({ navigation }) => {
 
       setImg(result.uri);
 
-
-      const formData = new FormData();
-      formData.append("profilePic", {
-        uri: result.uri,
-        type: 'image/jpg',
-        name: 'image.jpg',
-      });
-
-
-
-      // let token = await SecureStore.getItemAsync("token")
-
-      // const res = await axios.post(`${BACKEND_URL}/user/profile`, formData, {
-      //     headers: {
-      //         Authorization: "Bearer " + token
-      //     },
-      //     enctype: "multipart/form-data",
-      // })
-
-
-      // if (res.data.message === 'Profile Updated') {
-
-      setIsLoading(false);
       setIsReady(true)
-      //     setUserProfile(res.data.updatedUser)
-      //     alert("Profile Picture Updated Successfully")
-
-      // }
-
-
 
     } catch (error) {
 
@@ -87,16 +65,41 @@ const EditProfile = ({ navigation }) => {
   }
 
 
-  const handleUpdateProfile = () => {
+  const handleUpdateProfile = async () => {
     try {
 
-      console.log({ profileData });
-      navigation.navigate("Profile")
-      alert("Profile Updated Successfully")
+      const formData = new FormData();
+      formData.append("profilePic", {
+        uri: img,
+        type: 'image/jpg',
+        name: 'image.jpg',
+      });
+      formData.append("fullName",profileData.fullName)
+      formData.append("userName",profileData.userName)
+      formData.append("bio",profileData.bio)
+
+
+      let token = await SecureStore.getItemAsync("token")
+
+      const res = await axios.post(`${BACKEND_URL}/user/profile`, formData, {
+          headers: {
+              Authorization: "Bearer " + token
+          },
+          enctype: "multipart/form-data",
+      })
+
+
+      if (res.data.message === 'Profile Updated') {
+
+          setIsLoading(false);
+          setUserProfile(res.data.updatedUser)
+          navigation.navigate("Profile")
+          alert("Profile Updated Successfully")
+      }
 
     } catch (error) {
 
-      alert("Update Error", error)
+      alert("Edit Error", error)
 
     }
   }
@@ -144,7 +147,7 @@ const EditProfile = ({ navigation }) => {
             width: 120, height: 120,
             borderRadius: 100,
             marginBottom: 32
-          }} source={{ uri: img || 'https://i0.wp.com/themarvelreport.com/wp-content/uploads/2019/05/Tony-Stark-Iron-Man.jpg?ssl=1' }} />
+          }} source={{ uri: img}} />
           <TextInput value={profileData.fullName} onChangeText={(value) => handleProfileChange("fullName", value)} placeholder="Full Name" style={{
             marginBottom: 8,
             width: "100%"
