@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Card, Searchbar } from 'react-native-paper';
 import { Dimensions, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import ExploreCard from '../../components/ExploreCard'
 
 const Explore = () => {
 
@@ -43,23 +44,11 @@ const Explore = () => {
             }, {
                 id: "58694a0f-3da1-471f-bd96-145529d72",
                 title: "Third Item",
-            },]} keyExtractor={(item) => item.id} renderItem={({ item }) => <ExlporeItem />} />
+            },]} keyExtractor={(item) => item.id} renderItem={({ item }) => <ExploreCard />} />
         </SafeAreaView>
     )
 }
 
-const ExlporeItem = () => {
-    const navigation = useNavigation()
-    return (
-        <TouchableOpacity onPress={() => navigation.navigate("PostDetails") }>
-            <Card style={{
-                width: (Dimensions.get("screen").width - 32 - 16) / 2,
-                margin: 4,
-            }}>
-                <Card.Cover source={{ uri: 'https://picsum.photos/900' }} />
-            </Card>
-        </TouchableOpacity>
-    )
-}
+
 
 export default Explore

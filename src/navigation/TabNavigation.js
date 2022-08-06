@@ -1,9 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react'
-import Explore from '../screens/feature/Explore';
-import Profile from '../screens/feature/Profile';
 import  getTabIcon from '../utils/getTabIcon';
-import { FeatureExploreStack, FeatureHomeStack } from './StackNavigation';
+import { FeatureExploreStack, FeatureHomeStack, FeatureProfileStack } from './StackNavigation';
 
 
 
@@ -23,7 +21,7 @@ const TabNavigation = () => {
             })}>
             <Tab.Screen name="FeatureHome" component={FeatureHomeStack} />
             <Tab.Screen name="FeatureExplore" component={FeatureExploreStack} />
-            <Tab.Screen name="FeatureProfile" component={Profile} />
+            <Tab.Screen name="FeatureProfile" component={FeatureProfileStack} />
         </Tab.Navigator>
     )
 }
