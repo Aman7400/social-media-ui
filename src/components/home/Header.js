@@ -15,7 +15,7 @@ const Header = () => {
       }}>Socially</Text>
       {/* Tools */}
       <TouchableOpacity>
-        <Icon name="notifications" color={colors.onPrimaryContainer} size={24} />
+        <Icon name="notifications" color={colors.primary} size={24} />
       </TouchableOpacity>
     </View>
   )

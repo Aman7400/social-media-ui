@@ -8,6 +8,7 @@ const CreatePostsButton = () => {
     const navigation = useNavigation()
     return (
             <FAB
+    
                 style={styles.fab}
                 icon="pencil-outline"
                 onPress={() => navigation.navigate("CreatePost")}
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         zIndex: 10000,
-        backgroundColor: colors.onPrimaryContainer
+        backgroundColor: colors.primary
     },
 })
 export default CreatePostsButton
