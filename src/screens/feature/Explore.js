@@ -1,7 +1,8 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Card, Searchbar } from 'react-native-paper';
-import { Dimensions, FlatList } from 'react-native';
+import { Dimensions, FlatList, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Explore = () => {
 
@@ -16,7 +17,7 @@ const Explore = () => {
                 placeholder="Search"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
-                style={{marginBottom:16}}
+                style={{ marginBottom: 16 }}
             />
             {/* Explore Items */}
             <FlatList showsVerticalScrollIndicator={false} scrollsToTop={true} numColumns={2} data={[{
@@ -30,16 +31,16 @@ const Explore = () => {
             {
                 id: "58694a0f-3da1-471f-bd96-145571e29d72",
                 title: "Third Item",
-            },            {
+            }, {
                 id: "58694a0f-3da1-471f-bd96-145571e29d7",
                 title: "Third Item",
-            },            {
+            }, {
                 id: "58694a0f-3da1-471f-bd96-145571e292",
                 title: "Third Item",
-            },            {
+            }, {
                 id: "58694a0f-3da1-471f-bd96-1455729d72",
                 title: "Third Item",
-            },            {
+            }, {
                 id: "58694a0f-3da1-471f-bd96-145529d72",
                 title: "Third Item",
             },]} keyExtractor={(item) => item.id} renderItem={({ item }) => <ExlporeItem />} />
@@ -48,13 +49,16 @@ const Explore = () => {
 }
 
 const ExlporeItem = () => {
+    const navigation = useNavigation()
     return (
-        <Card style={{
-            width:(Dimensions.get("screen").width-32-16)/2,
-            margin:4,
-        }}>
-            <Card.Cover source={{ uri: 'https://picsum.photos/900' }} />
-        </Card>
+        <TouchableOpacity onPress={() => navigation.navigate("PostDetails") }>
+            <Card style={{
+                width: (Dimensions.get("screen").width - 32 - 16) / 2,
+                margin: 4,
+            }}>
+                <Card.Cover source={{ uri: 'https://picsum.photos/900' }} />
+            </Card>
+        </TouchableOpacity>
     )
 }
 

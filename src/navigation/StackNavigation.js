@@ -2,7 +2,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GetStarted from "../screens/auth/GetStarted";
 import Login from "../screens/auth/Login";
 import Register from "../screens/auth/Register";
+import Explore from "../screens/feature/Explore";
 import Home from "../screens/feature/Home";
+import PostDetails from "../screens/feature/PostDetails";
 import Profile from "../screens/feature/Profile";
 
 
@@ -20,14 +22,27 @@ const AuthStack = () => {
     )
 }
 
-// const FeatureStack = () => {
-//     return (
-//         <>
-//             <Stack.Screen name="Home" component={Home} />
-//             <Stack.Screen name="Profile" component={Profile} />
-//         </>
+const FeatureHomeStack = () => {
+    return (
+        <Stack.Navigator screenOptions={{
+            headerShown:false,
+        }}>
+            <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
 
-//     )
-// }
+    )
+}
 
-export { AuthStack }
+const FeatureExploreStack = () => {
+    return (
+        <Stack.Navigator screenOptions={{
+            headerShown:false,
+        }}>
+            <Stack.Screen name="Exlpore" component={Explore} />
+            <Stack.Screen name="PostDetails" component={PostDetails} />
+        </Stack.Navigator>
+
+    )
+}
+
+export { AuthStack,FeatureHomeStack,FeatureExploreStack }
