@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GetStarted from "../screens/auth/GetStarted";
 import Login from "../screens/auth/Login";
 import Register from "../screens/auth/Register";
+import CreatePost from "../screens/feature/CreatePost";
 import EditProfile from "../screens/feature/EditProfile";
 import Explore from "../screens/feature/Explore";
 import Home from "../screens/feature/Home";
@@ -29,6 +30,7 @@ const FeatureHomeStack = () => {
             headerShown:false,
         }}>
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="CreatePost" component={CreatePost} />
         </Stack.Navigator>
 
     )

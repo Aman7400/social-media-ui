@@ -3,7 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Header from '../../components/home/Header'
 import Stories from '../../components/home/Stories'
-import CreatePosts from '../../components/home/CreatePosts'
+import CreatePostsButton from '../../components/home/CreatePostsButton'
 import NewsFeeds from '../../components/home/NewsFeeds'
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
       {/* Header */}
       <Header />
       {/* Create Post */}
-      <CreatePosts />
+      <CreatePostsButton />
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} bounces={false}>
         {/* Stories */}
         <Stories />
