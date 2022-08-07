@@ -19,7 +19,7 @@ const PostDetails = ({ route, navigation }) => {
         <Text style={{ marginLeft: 16, fontSize: 18, fontFamily: fonts.bold }}>{title}</Text>
       </View>
       {/* Posts */}
-      <PostCard post={post} />
+      <PostCard title={title} post={post} />
     </SafeAreaView>
   )
 }
