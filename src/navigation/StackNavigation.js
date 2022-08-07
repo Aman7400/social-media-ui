@@ -8,6 +8,7 @@ import Explore from "../screens/feature/Explore";
 import Home from "../screens/feature/Home";
 import PostDetails from "../screens/feature/PostDetails";
 import Profile from "../screens/feature/Profile";
+import ViewProfile from "../screens/feature/ViewProfile";
 
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +32,7 @@ const FeatureHomeStack = () => {
         }}>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="CreatePost" component={CreatePost} />
+            <Stack.Screen name="ViewProfile" component={ViewProfile} />
         </Stack.Navigator>
 
     )

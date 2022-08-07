@@ -7,10 +7,6 @@ import Icon from "react-native-vector-icons/Ionicons"
 import { AuthContext } from "../contexts/AuthContext"
 import { fonts } from "../theme/theme"
 
-
-
-const LeftContent = props => <Avatar.Image size={36} source={{ uri:'https://picsum.photos/900'}} icon="account" />
-
 const RightContent = props => <Icon suppressHighlighting style={{marginLeft:"auto"}} size={18} onPress={() => props.onPress()}name="ellipsis-vertical" />
 
 
@@ -24,22 +20,19 @@ const PostCard = ({post}) => {
 
     }
 
-    const {userProfile} = React.useContext(AuthContext)
 
     const [isLiked,setIsLiked] = React.useState(false)
 
 
-    // console.log(post);
-    console.log(post.uploadedBy?.userName);
 
 
     return (
         <>
             <Card style={{ borderRadius: 8, marginBottom: 8,padding:8 }}>
                 <View style={{flexDirection:"row",alignItems: "center",marginBottom: 8 }}>
-                    <LeftContent/>
+                <Avatar.Image size={36} source={{ uri:`http://localhost:8000/api${post?.uploadedBy?.profilePic}`}} icon="account" />
                     <View style={{marginLeft:8}}>
-                        <Text style={{ fontSize:16,fontFamily:fonts.bold}}>
+                        <Text onPress={() => navigation.navigate("ViewProfile",{userId: post?.uploadedBy?._id})}style={{ fontSize:16,fontFamily:fonts.bold}}>
                             {post?.uploadedBy?.userName}
                         </Text>
                         <Text style={{ fontSize:12,fontFamily:fonts.regular}}>

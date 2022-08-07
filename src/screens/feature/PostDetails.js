@@ -9,6 +9,8 @@ const PostDetails = ({ route, navigation }) => {
 
   const {title,post} = route.params 
 
+  
+
   return (
     <SafeAreaView style={{ flex: 1,paddingHorizontal:16,}}>
       {/* Toolbar */}
