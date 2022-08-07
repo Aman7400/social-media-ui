@@ -5,7 +5,6 @@ import React from 'react'
 
 const ExploreCard = ({title,item}) => {
 
-    
     const navigation = useNavigation()
     return (
         <TouchableOpacity onPress={() => navigation.navigate("PostDetails",{title,post:item}) }>

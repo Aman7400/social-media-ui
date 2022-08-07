@@ -1,15 +1,66 @@
+import { View, Text, ActivityIndicator, FlatList } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Card, Searchbar } from 'react-native-paper';
-import { Dimensions, FlatList, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import ExploreCard from '../../components/ExploreCard'
+import { AuthContext } from '../../contexts/AuthContext';
+import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
+import * as SecureStore from "expo-secure-store"
+import { Searchbar } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ExploreCard from '../../components/ExploreCard';
+
+const BACKEND_URL = "http://localhost:8000/api"
 
 const Explore = () => {
 
     const [searchQuery, setSearchQuery] = React.useState('');
-
     const onChangeSearch = query => setSearchQuery(query);
+    const isFocused = useIsFocused();
+    const [exploreFeed, setExploreFeeds] = React.useState([]);
+    const { isLoading, setIsLoading } = React.useContext(AuthContext)
+
+
+    const getExlporeFeeds = async () => {
+        try {
+            setIsLoading(true);
+            let token = await SecureStore.getItemAsync("token")
+            const res = await axios.get(`${BACKEND_URL}/feed/latest`, {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            })
+
+            if (res.data.message === 'Latest Posts') {
+                console.log(res.data);
+                setExploreFeeds(res.data.latestPosts)
+            }
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert("Feeds Error : ", error)
+
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    React.useEffect(() => {
+
+        if (isFocused) {
+            console.log("Getting Explore...");
+            getExlporeFeeds();
+        }
+
+    }, [isFocused])
+
+    if (isLoading) {
+        return (<View style={{ flex: 1 }}>
+            <ActivityIndicator style={{ flex: 1 }} />
+        </View>)
+    }
+
+
 
     return (
         <SafeAreaView style={{ padding: 16 }}>
@@ -21,34 +72,15 @@ const Explore = () => {
                 style={{ marginBottom: 16 }}
             />
             {/* Explore Items */}
-            <FlatList showsVerticalScrollIndicator={false} scrollsToTop={true} numColumns={2} data={[{
-                id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-                title: "First Item",
-            },
-            {
-                id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-                title: "Second Item",
-            },
-            {
-                id: "58694a0f-3da1-471f-bd96-145571e29d72",
-                title: "Third Item",
-            }, {
-                id: "58694a0f-3da1-471f-bd96-145571e29d7",
-                title: "Third Item",
-            }, {
-                id: "58694a0f-3da1-471f-bd96-145571e292",
-                title: "Third Item",
-            }, {
-                id: "58694a0f-3da1-471f-bd96-1455729d72",
-                title: "Third Item",
-            }, {
-                id: "58694a0f-3da1-471f-bd96-145529d72",
-                title: "Third Item",
-            },]} keyExtractor={(item) => item.id} renderItem={({ item }) => <ExploreCard title={"Explore"} />} />
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                scrollsToTop={true}
+                numColumns={2}
+                data={exploreFeed}
+                keyExtractor={(item) => item._id}
+                renderItem={({ item }) => <ExploreCard item={item} />} />
         </SafeAreaView>
     )
 }
-
-
 
 export default Explore
