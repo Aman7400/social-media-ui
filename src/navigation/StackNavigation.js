@@ -45,6 +45,7 @@ const FeatureExploreStack = () => {
         }}>
             <Stack.Screen name="Exlpore" component={Explore} />
             <Stack.Screen name="PostDetails" component={PostDetails} />
+            <Stack.Screen name="ViewProfile" component={ViewProfile} />
         </Stack.Navigator>
 
     )

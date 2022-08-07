@@ -30,7 +30,6 @@ const Explore = () => {
             })
 
             if (res.data.message === 'Latest Posts') {
-                console.log(res.data);
                 setExploreFeeds(res.data.latestPosts)
             }
 
@@ -78,7 +77,7 @@ const Explore = () => {
                 numColumns={2}
                 data={exploreFeed}
                 keyExtractor={(item) => item._id}
-                renderItem={({ item }) => <ExploreCard item={item} />} />
+                renderItem={({ item }) => <ExploreCard title={"Explore"} item={item} />} />
         </SafeAreaView>
     )
 }
