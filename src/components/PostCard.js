@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native"
 import React from "react"
 import { Text, View, StyleSheet, Ges, TouchableOpacity } from "react-native"
 import { BottomSheet } from "react-native-btr"
-import { Avatar, Card } from "react-native-paper"
+import { Avatar, Button, Card } from "react-native-paper"
 import Icon from "react-native-vector-icons/Ionicons"
 import { fonts } from "../theme/theme"
 import { AuthContext } from "../contexts/AuthContext"
@@ -24,6 +24,7 @@ const PostCard = ({ post, title }) => {
 
 
     const [isLiked, setIsLiked] = React.useState(false)
+    const [following, setIsFollowing] = React.useState(false)
 
 
 
@@ -48,6 +49,15 @@ const PostCard = ({ post, title }) => {
                             {post?.location}
                         </Text>
                     </View>
+                    {/* Follow Button */}
+                    {
+                        !following && <TouchableOpacity onPress={() => alert("Follow Request Send")} style={{ backgroundColor: "#C8c8c840", padding: 8, marginLeft: 8, borderRadius: 4 }}>
+                            <Text style={{ fontSize: 10, fontFamily: fonts.regular }}>
+                                Follow
+                            </Text>
+                        </TouchableOpacity>
+                    }
+
                     <RightContent onPress={toggle} />
                 </View>
                 {/* <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} right={(props) => <RightContent {...props} onPress={toggle} />} /> */}
